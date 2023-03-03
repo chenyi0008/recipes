@@ -1,22 +1,24 @@
 package com.recipes.controller;
 
 import com.recipes.common.R;
-import com.recipes.entity.User;
-import com.recipes.service.UserService;
+import com.recipes.entity.Employee;
+import com.recipes.service.EmployeeService;
 import com.recipes.util.CodeUtil;
 import com.recipes.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
- * user
+ * employee
  */
 @RestController
-@RequestMapping("user")
-public class UserController {
-
+@RequestMapping("employee")
+public class EmployeeController {
     @Autowired
-    UserService userService;
+    EmployeeService employeeService;
 
     /**
      * 注册
@@ -24,14 +26,14 @@ public class UserController {
      * @return
      */
     @PostMapping("register")
-    public R<String> register(@RequestBody User user){
+    public R<String> register(@RequestBody Employee user){
         String username = user.getUsername();
-        User tmp = userService.findByUsername(username);
+        Employee tmp = employeeService.findByUsername(username);
         if(tmp != null)return R.error("账号已存在");
         String s = CodeUtil.encodeToString(user.getPassword());
         user.setPassword(s);
         user.setId(null);
-        userService.save(user);
+        employeeService.save(user);
         return R.msg("注册成功");
     }
 
@@ -41,8 +43,8 @@ public class UserController {
      * @return
      */
     @PostMapping("login")
-    public R<String> login(@RequestBody User user){
-        User tmp = userService.findByUsername(user.getUsername());
+    public R<String> login(@RequestBody Employee user){
+        Employee tmp = employeeService.findByUsername(user.getUsername());
         if(tmp == null || user.getPassword() == null)return R.error("该账号不存在");
         String password = tmp.getPassword();
         password = CodeUtil.decode(password);
@@ -52,6 +54,5 @@ public class UserController {
         }
         return R.error("账号或密码输入有误");
     }
-
 
 }

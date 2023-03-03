@@ -10,3 +10,6 @@ spring:
     password: root
   jpa:
     show-sql: true
+
+recipes:
+  path: E:\Code\java\recipes\image\
