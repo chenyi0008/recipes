@@ -1,21 +1,16 @@
 package com.recipes.mapper;
 
-
 import com.recipes.entity.Menu;
+import com.recipes.entity.ShoppingCart;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
-public interface MenuDao extends JpaRepository<Menu,Long>, JpaSpecificationExecutor<Menu> {
+public interface ShoppingCartDao extends JpaRepository<ShoppingCart,Long>, JpaSpecificationExecutor<ShoppingCart> {
 
-    public Page<Menu> findByNameLike(String name,Pageable pageable);
-
-    public Page<Menu> findByNameLikeAndStatus(String name,Integer status,Pageable pageable);
-
+    public Page<ShoppingCart> findByUserId(Long userId, Pageable pageable);
 
 }

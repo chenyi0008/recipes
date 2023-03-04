@@ -2,14 +2,13 @@ package com.recipes.controller;
 
 import com.recipes.common.R;
 import com.recipes.entity.Employee;
+import com.recipes.entity.User;
 import com.recipes.service.EmployeeService;
 import com.recipes.util.CodeUtil;
 import com.recipes.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * employee
@@ -49,10 +48,13 @@ public class EmployeeController {
         String password = tmp.getPassword();
         password = CodeUtil.decode(password);
         if(user.getPassword().equals(password)){
-            String token = JwtUtil.createToken(tmp.getUsername(), tmp.getId());
+            String token = JwtUtil.createToken(tmp.getUsername(), tmp.getId(),"employee");
             return R.success(token, "登录成功");
         }
         return R.error("账号或密码输入有误");
     }
+
+
+
 
 }

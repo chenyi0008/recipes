@@ -47,11 +47,13 @@ public class UserController {
         String password = tmp.getPassword();
         password = CodeUtil.decode(password);
         if(user.getPassword().equals(password)){
-            String token = JwtUtil.createToken(tmp.getUsername(), tmp.getId());
+            String token = JwtUtil.createToken(tmp.getUsername(), tmp.getId(),"user");
             return R.success(token, "登录成功");
         }
         return R.error("账号或密码输入有误");
     }
+
+
 
 
 }

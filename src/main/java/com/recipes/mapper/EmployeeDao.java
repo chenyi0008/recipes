@@ -11,4 +11,6 @@ import org.springframework.stereotype.Component;
 public interface EmployeeDao extends JpaRepository<Employee,Long>, JpaSpecificationExecutor<Employee> {
 
     public Employee findByUsername(String username);
+
+
 }
