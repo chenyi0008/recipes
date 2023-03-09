@@ -17,5 +17,6 @@ public interface MenuDao extends JpaRepository<Menu,Long>, JpaSpecificationExecu
 
     public Page<Menu> findByNameLikeAndStatus(String name,Integer status,Pageable pageable);
 
+    public Page<Menu> findByCategoryId(Long categoryId, Pageable pageable);
 
 }

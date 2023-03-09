@@ -76,13 +76,14 @@ public class LoginCheckFilter implements Filter {
         String[] employeeUrls = new String[]{
                 "/backStage/**",
                 "/common/**",
-                "/menu/**"
+                "/menu/**",
+                "/category/**"
         };
         String[] userUrls = new String[]{
-
                 "/common/**",
                 "/address/**",
-                "/shoppingCart/**"
+                "/shoppingCart/**",
+                "/category/**"
         };
 
 

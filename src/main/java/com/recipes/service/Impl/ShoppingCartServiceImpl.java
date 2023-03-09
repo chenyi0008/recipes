@@ -20,4 +20,19 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         Pageable pageable = PageRequest.of(page - 1, pageSize);
         return shoppingCartDao.findByUserId(userId, pageable);
     }
+
+    @Override
+    public void save(ShoppingCart shoppingCart) {
+        shoppingCartDao.save(shoppingCart);
+    }
+
+    @Override
+    public Integer deleteById(Long id, Long userId) {
+        return shoppingCartDao.deleteShoppingCartByUserIdAndId(id, userId);
+    }
+
+    @Override
+    public Integer deleteAll(Long userId) {
+        return shoppingCartDao.deleteAllByUserId(userId);
+    }
 }

@@ -16,4 +16,6 @@ public interface MenuService {
     public Page<Menu> findByNameLikeAndStatus(String name,Integer page,Integer pageSize);
 
     public Optional<Menu> getMenuById(Long id);
+
+    public Page<Menu> getByCategoryId(Long categoryId, Integer page, Integer pageSize);
 }

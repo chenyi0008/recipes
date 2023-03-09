@@ -38,6 +38,13 @@ public class MenuServiceImpl implements MenuService {
         return menuDao.findById(id);
     }
 
+    @Override
+    public Page<Menu> getByCategoryId(Long categoryId, Integer page, Integer pageSize) {
+        Pageable pageable = PageRequest.of(page - 1, pageSize);
+        return menuDao.findByCategoryId(categoryId, pageable);
+    }
+
+
     public Page<Menu> findByNameLikeAndStatus(String name,Integer page,Integer pageSize){
         Pageable pageable = PageRequest.of(page - 1,pageSize);
         if(name == null) name = "%%";

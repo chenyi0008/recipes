@@ -16,4 +16,6 @@ public interface AddressBookDao extends JpaRepository<AddressBook,Long>, JpaSpec
 
     Integer deleteAddressBookByIdAndUserId(Long id, Long userId);
 
+    AddressBook findAddressBookByUserIdAndId(Long Id,Long userId);
+
 }

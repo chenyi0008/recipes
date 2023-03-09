@@ -13,4 +13,10 @@ public interface ShoppingCartDao extends JpaRepository<ShoppingCart,Long>, JpaSp
 
     public Page<ShoppingCart> findByUserId(Long userId, Pageable pageable);
 
+    public Integer deleteShoppingCartByUserIdAndId(Long id, Long userId);
+
+    public Integer deleteAllByUserId(Long userId);
+
+
+
 }

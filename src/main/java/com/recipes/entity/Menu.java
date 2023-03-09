@@ -1,5 +1,6 @@
 package com.recipes.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,4 +36,10 @@ public class Menu {
 
     @Column(name = "category_id")
     Long categoryId;
+
+
+
+//    @OneToOne(fetch = FetchType.EAGER)
+//    @JsonBackReference
+//    OrderDetail orderDetail;
 }

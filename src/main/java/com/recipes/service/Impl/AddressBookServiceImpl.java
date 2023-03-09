@@ -31,5 +31,10 @@ public class AddressBookServiceImpl implements AddressBookService {
         return addressBookDao.deleteAddressBookByIdAndUserId(id, userId);
     }
 
+    @Override
+    public AddressBook getById(Long id, Long userId) {
+        return addressBookDao.findAddressBookByUserIdAndId(id, userId);
+    }
+
 
 }

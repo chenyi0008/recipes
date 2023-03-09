@@ -13,4 +13,7 @@ public interface AddressBookService {
 
     public Integer deleteById(Long id, Long userId);
 
+    public AddressBook getById(Long id, Long userId);
+
+
 }
