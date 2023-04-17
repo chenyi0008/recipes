@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Component
-public interface UserDao extends JpaRepository<User,Long>, JpaSpecificationExecutor<User> {
+public interface UserDao extends JpaRepository<User,Integer>, JpaSpecificationExecutor<User> {
 
     public User findByUsername(String username);
 

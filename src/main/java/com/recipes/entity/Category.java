@@ -19,10 +19,13 @@ public class Category {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    Integer id;
 
     @Column
     String name;
+
+    @Column(name = "store_id")
+    Integer storeId;
 
 
 }

@@ -2,19 +2,17 @@ package com.recipes.controller;
 
 import com.recipes.common.R;
 import com.recipes.entity.Employee;
-import com.recipes.entity.User;
 import com.recipes.service.EmployeeService;
 import com.recipes.util.CodeUtil;
 import com.recipes.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 /**
  * employee
  */
 @RestController
-@RequestMapping("employee")
+@RequestMapping("/employee")
 public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
@@ -24,7 +22,7 @@ public class EmployeeController {
      * @param user
      * @return
      */
-    @PostMapping("register")
+    @PostMapping("/register")
     public R<String> register(@RequestBody Employee user){
         String username = user.getUsername();
         Employee tmp = employeeService.findByUsername(username);
@@ -41,7 +39,7 @@ public class EmployeeController {
      * @param user
      * @return
      */
-    @PostMapping("login")
+    @PostMapping("/login")
     public R<String> login(@RequestBody Employee user){
         Employee tmp = employeeService.findByUsername(user.getUsername());
         if(tmp == null || user.getPassword() == null)return R.error("该账号不存在");

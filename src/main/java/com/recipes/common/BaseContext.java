@@ -4,14 +4,14 @@ package com.recipes.common;
  * 基于Threadlocal封装工具类，用户保存和获取当前登录id
  */
 public class BaseContext {
-    private static ThreadLocal<Long> currentUserId = new ThreadLocal<>();
+    private static ThreadLocal<Integer> currentUserId = new ThreadLocal<>();
     private static ThreadLocal<String> currentUsername = new ThreadLocal<>();
 
     /**
      * 设置值
      * @param id
      */
-    public static void setUserId(Long id){
+    public static void setUserId(Integer id){
         currentUserId.set(id);
     }
 
@@ -19,7 +19,7 @@ public class BaseContext {
      * 获取值
      * @return
      */
-    public static Long getUserId(){
+    public static Integer getUserId(){
         return currentUserId.get();
     }
 

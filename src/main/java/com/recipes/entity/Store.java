@@ -1,6 +1,5 @@
 package com.recipes.entity;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,28 +10,25 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "address_book")
-public class AddressBook {
+@Table(name = "store")
+public class Store {
 
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-
-    @Column(name = "user_id")
-    Long userId;
+    private Integer id;
 
     @Column
-    String consignee;
+    private String name;
 
     @Column
-    String phone;
+    private String address;
 
     @Column
-    String address;
+    private String description;
 
-    @Column
-    String label;
+    @Column(name = "employee_id")
+    private Integer employeeId;
 
 
 }

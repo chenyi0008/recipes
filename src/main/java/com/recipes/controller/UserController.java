@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  * user
  */
 @RestController
-@RequestMapping("user")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -23,7 +23,7 @@ public class UserController {
      * @param user
      * @return
      */
-    @PostMapping("register")
+    @PostMapping("/register")
     public R<String> register(@RequestBody User user){
         String username = user.getUsername();
         User tmp = userService.findByUsername(username);
@@ -40,7 +40,7 @@ public class UserController {
      * @param user
      * @return
      */
-    @PostMapping("login")
+    @PostMapping("/login")
     public R<String> login(@RequestBody User user){
         User tmp = userService.findByUsername(user.getUsername());
         if(tmp == null || user.getPassword() == null)return R.error("该账号不存在");

@@ -4,6 +4,9 @@ import com.recipes.entity.Category;
 import com.recipes.mapper.CategoryDao;
 import com.recipes.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,11 +26,16 @@ public class CategoryServiceImpl implements CategoryService {
         categoryDao.save(category);
     }
 
+    public Page<Category> findByStoreId(Integer storeId){
+        Pageable pageable = PageRequest.of(0, 1000);
+        return categoryDao.findAllByStoreId(storeId, pageable);
+    }
+
     public void update(Category category){
         categoryDao.save(category);
     }
 
-    public void deleteById(Long id){
+    public void deleteById(Integer id){
         categoryDao.deleteById(id);
     }
 

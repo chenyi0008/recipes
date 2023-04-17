@@ -11,6 +11,6 @@ public interface EmployeeService {
 
     public Page<User> getUserDate(Integer page, Integer pageSize);
 
-    public void deleteUserById(Long id);
+    public void deleteUserById(Integer id);
 
 }

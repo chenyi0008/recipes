@@ -61,7 +61,7 @@ public class LoginCheckFilter implements Filter {
 
         //判断登录状态，如果已经登录，则直接放行
         String token = request.getHeader("token");
-        Long userId = 888L;
+        Integer userId = 888;
         String username ="";
         String role = "";
         Boolean flag = true;
@@ -77,13 +77,17 @@ public class LoginCheckFilter implements Filter {
                 "/backStage/**",
                 "/common/**",
                 "/menu/**",
-                "/category/**"
+                "/category/**",
+                "/board/**",
+                "/store/**"
         };
         String[] userUrls = new String[]{
                 "/common/**",
                 "/address/**",
                 "/shoppingCart/**",
-                "/category/**"
+                "/category/**",
+                "/board/**",
+                "/store/**"
         };
 
 
@@ -98,14 +102,17 @@ public class LoginCheckFilter implements Filter {
             filterChain.doFilter(request,response);
             else if(role.equals("user") && check(userUrls, requestURI))
             filterChain.doFilter(request,response);
-            else
-            response.getWriter().write(com.alibaba.fastjson.JSON.toJSONString(R.error("非法请求"), SerializerFeature.BrowserCompatible));
+            else {
+                response.setStatus(401);
+                response.getWriter().write(com.alibaba.fastjson.JSON.toJSONString(R.error("非法请求"), SerializerFeature.BrowserCompatible));
+            }
             return;
         }
 
         log.info("用户未登录");
         //如果未登录则返回未登录结果，通过输出流方式向客户端页面响应数据
 
+        response.setStatus(401);
         response.getWriter().write(com.alibaba.fastjson.JSON.toJSONString(R.error("用户未登录"), SerializerFeature.BrowserCompatible));
 
     }

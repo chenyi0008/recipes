@@ -4,14 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.io.Serializable;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "employee")
-public class Employee implements Serializable {
+@Table(name = "board")
+public class Board implements Serializable {
 
     @Id
     @Column
@@ -19,9 +20,24 @@ public class Employee implements Serializable {
     private Integer id;
 
     @Column
-    private String username;
+    private String name;
 
+    /**
+     * 0：禁用
+     * 1：未有客人
+     * 2：有客人
+     */
     @Column
-    private String password;
+    private Integer status;
+
+    @Column(name = "user_id")
+    private Integer userId;
+
+
+    @Column(name = "store_id")
+    private Integer storeId;
+
+
+
 
 }

@@ -33,7 +33,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void deleteUserById(Long id) {
+    public void deleteUserById(Integer id) {
         userDao.deleteById(id);
     }
 
