@@ -22,7 +22,7 @@ public class CategoryController {
     CategoryService categoryService;
 
 //    @Autowired
-//    MenuService menuService;
+//    DishService dishService;
 
     /**
      * 添加分类
@@ -68,19 +68,7 @@ public class CategoryController {
         return R.msg("删除成功");
     }
 
-//
-//    /**
-//     * 根据categoryId查询菜品
-//     * @param categoryId
-//     * @param page
-//     * @param pageSize
-//     * @return
-//     */
-//    @GetMapping("menu")
-//    public R<Page<Menu>> getByCategoryId(Integer categoryId, Integer page, Integer pageSize){
-//        Page<Menu> res = menuService.getByCategoryId(categoryId, page, pageSize);
-//        return R.success(res);
-//    }
+
 //
 //    /**
 //     * 添加菜品加入到分类
@@ -91,11 +79,11 @@ public class CategoryController {
 //    @GetMapping("add")
 //    public R<String> addMenu(Integer categoryId, Integer menuId){
 //
-//        Optional<Menu> menu = menuService.getMenuById(menuId);
-//        Menu menu1 = menu.get();
+//        Optional<Dish> menu = dishService.getMenuById(menuId);
+//        Dish menu1 = menu.get();
 //        if(!menu.isPresent())return R.error("不存在此菜品");
 //        menu1.setCategoryId(categoryId);
-//        menuService.save(menu1);
+//        dishService.save(menu1);
 //        return R.msg("添加成功");
 //    }
 

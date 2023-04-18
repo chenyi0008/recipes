@@ -13,7 +13,7 @@ import java.util.List;
 class RecipesApplicationTests {
 
 //    @Autowired
-//    MenuService menuService;
+//    DishService menuService;
 //
 //    @Autowired
 //    OrdersDao ordersDao;

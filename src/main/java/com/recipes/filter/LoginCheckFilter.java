@@ -76,7 +76,7 @@ public class LoginCheckFilter implements Filter {
         String[] employeeUrls = new String[]{
                 "/backStage/**",
                 "/common/**",
-                "/menu/**",
+                "/dish/**",
                 "/category/**",
                 "/board/**",
                 "/store/**"
@@ -87,7 +87,8 @@ public class LoginCheckFilter implements Filter {
                 "/shoppingCart/**",
                 "/category/**",
                 "/board/**",
-                "/store/**"
+                "/store/**",
+                "/dish/**",
         };
 
 
