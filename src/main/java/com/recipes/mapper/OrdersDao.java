@@ -1,21 +1,15 @@
 package com.recipes.mapper;
 
-
-import com.recipes.entity.Board;
+import com.recipes.entity.Orders;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
-
 @Component
-public interface BoardDao extends JpaRepository<Board,Integer>, JpaSpecificationExecutor<Board> {
+public interface OrdersDao extends JpaRepository<Orders,Integer>, JpaSpecificationExecutor<Orders> {
 
-    public Page<Board> findAllByStoreId(Integer storeId, Pageable pageable);
-
-    public Optional<Board> findBoardByUserId(Integer userId);
-
+    public Page<Orders> findOrdersByUserId(Pageable pageable, Integer userId);
 
 }

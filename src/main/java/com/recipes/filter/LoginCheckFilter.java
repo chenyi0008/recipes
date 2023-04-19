@@ -79,7 +79,8 @@ public class LoginCheckFilter implements Filter {
                 "/dish/**",
                 "/category/**",
                 "/board/**",
-                "/store/**"
+                "/store/**",
+                "/shoppingCart/**"
         };
         String[] userUrls = new String[]{
                 "/common/**",

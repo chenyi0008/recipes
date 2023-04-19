@@ -7,8 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -36,5 +37,13 @@ public class BoardServiceImpl implements BoardService {
     public Page<Board> queryByStoreId(Integer storeId, int page, int size) {
         Pageable pageable = PageRequest.of(page - 1,size);
         return boardDao.findAllByStoreId(storeId,pageable);
+    }
+
+    public Optional<Board> queryById(Integer boardId){
+        return boardDao.findById(boardId);
+    }
+
+    public Optional<Board> findByUserId(Integer userId){
+        return boardDao.findBoardByUserId(userId);
     }
 }
