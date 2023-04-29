@@ -44,9 +44,9 @@ public class OrderDetail implements Serializable {
     @JsonBackReference
     private Orders orders;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "dish_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private Dish dish;
+//    @OneToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "dish_id", referencedColumnName = "id", insertable = false, updatable = false)
+//    private Dish dish;
 
     @Override
     public String toString() {

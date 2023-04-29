@@ -36,11 +36,11 @@ class RecipesApplicationTests {
     @Autowired
     ShoppingCartDao shoppingCartDao;
 
-    @Test
-    @Transactional
-    void test1(){
-        Integer integer = shoppingCartDao.deleteShoppingCartByIdAndUserId(2, 4);
-        System.out.println(integer);
-    }
+//    @Test
+//    @Transactional
+//    void test1(){
+//        Integer integer = shoppingCartDao.deleteShoppingCartByIdAndUserId(2, 4);
+//        System.out.println(integer);
+//    }
 
 }

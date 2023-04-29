@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -48,4 +49,36 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public void update(ShoppingCart shoppingCart){
         shoppingCartDao.save(shoppingCart);
     }
+
+    @Override
+    public Page<ShoppingCart> findAll(Integer page, Integer size, Integer storeId) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        return shoppingCartDao.findAllByStoreId(pageable, storeId);
+    }
+
+    @Override
+    public Page<ShoppingCart> findAllByStatus(Integer status, Integer page, Integer size, Integer storeId) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        return shoppingCartDao.findAllByStatusAndStoreId(pageable, status,storeId);
+    }
+
+    public Page<ShoppingCart> findAllByStatusAndUserId(Integer status, Integer page, Integer size, Integer userId) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        return shoppingCartDao.findAllByStatusAndUserId(pageable, status, userId);
+    }
+
+    public Integer deleteAllByUserIdAndStatusNot(Integer userId, Integer status){
+        return shoppingCartDao.deleteAllByUserIdAndStatusNot(userId, status);
+    }
+
+    public void saveList(List<ShoppingCart> content){
+        shoppingCartDao.saveAll(content);
+    }
+
+    public Page<ShoppingCart> findAllByStatusAndUserIdAndIdIn(Integer status, Integer page, Integer size, Integer userId, List<Integer> list){
+        Pageable pageable = PageRequest.of(page - 1, size);
+        return shoppingCartDao.findAllByStatusAndUserIdAndIdIn(pageable,status, userId, list);
+    }
+
+
 }

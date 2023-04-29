@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 
 @Component
 public interface ShoppingCartDao extends JpaRepository<ShoppingCart,Integer>, JpaSpecificationExecutor<ShoppingCart> {
@@ -18,6 +20,18 @@ public interface ShoppingCartDao extends JpaRepository<ShoppingCart,Integer>, Jp
     public Integer removeShoppingCartByUserIdAndId(Integer userId, Integer id);
 
     public Integer deleteAllByUserId(Integer userId);
+
+    public Page<ShoppingCart> findAllByStoreId(Pageable pageable, Integer storeId);
+
+    public Page<ShoppingCart> findAllByStatusAndStoreId(Pageable pageable,Integer status, Integer storeId);
+
+    public Page<ShoppingCart> findAllByStatusAndUserId(Pageable pageable, Integer status, Integer userId);
+
+    public Page<ShoppingCart> findAllByStatusAndUserIdAndIdIn(Pageable pageable, Integer status, Integer userId, List<Integer> ids);
+
+    public Integer deleteAllByUserIdAndStatusNot(Integer userId, Integer status);
+
+
 
 
 

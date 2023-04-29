@@ -34,14 +34,14 @@ public class Orders  implements Serializable {
     @Column(name = "amount")
     private Double amount;
 
-    @Column
-    private String phone;
-
     @Column(name = "user_name")
     private String userName;
 
-    @Column(name = "table_id")
-    private Integer tableId;
+    @Column(name = "board_id")
+    private Integer boardId;
+
+    @Column(name = "store_id")
+    private Integer storeId;
 
     @Override
     public String toString() {
@@ -50,28 +50,26 @@ public class Orders  implements Serializable {
                 ", userId=" + userId +
                 ", orderTime='" + orderTime + '\'' +
                 ", amount=" + amount +
-                ", phone='" + phone + '\'' +
                 ", userName='" + userName + '\'' +
 //                ", detailSet=" + detailSet +
                 '}';
     }
 
-//    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
-//    @JsonManagedReference
-//    public Set<OrderDetail> detailSet = new HashSet<>();
-
+    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    public Set<OrderDetail> detailSet = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Orders orders = (Orders) o;
-        return Objects.equals(id, orders.id) && Objects.equals(userId, orders.userId) && Objects.equals(orderTime, orders.orderTime) && Objects.equals(amount, orders.amount) && Objects.equals(phone, orders.phone) && Objects.equals(userName, orders.userName) ;
+        return Objects.equals(id, orders.id) && Objects.equals(userId, orders.userId) && Objects.equals(orderTime, orders.orderTime) && Objects.equals(amount, orders.amount)  && Objects.equals(userName, orders.userName) ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, orderTime, amount,  phone, userName);
+        return Objects.hash(id, userId, orderTime, amount,   userName);
     }
 }
 

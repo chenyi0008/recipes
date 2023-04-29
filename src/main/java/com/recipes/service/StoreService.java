@@ -14,4 +14,8 @@ public interface StoreService {
     public void update(Store store);
 
     public void save(Store store);
+
+    public Store getById(Integer id);
+
+    public Page<Store> getRandomStore(int size);
 }

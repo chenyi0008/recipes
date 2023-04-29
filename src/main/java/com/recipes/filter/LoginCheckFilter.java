@@ -80,7 +80,9 @@ public class LoginCheckFilter implements Filter {
                 "/category/**",
                 "/board/**",
                 "/store/**",
-                "/shoppingCart/**"
+                "/shoppingCart/**",
+                "/orders/**",
+                "/backstage/**"
         };
         String[] userUrls = new String[]{
                 "/common/**",
@@ -90,6 +92,7 @@ public class LoginCheckFilter implements Filter {
                 "/board/**",
                 "/store/**",
                 "/dish/**",
+                "/collect/**",
         };
 
 

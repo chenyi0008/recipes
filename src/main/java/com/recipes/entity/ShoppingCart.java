@@ -39,7 +39,14 @@ public class ShoppingCart {
     @Column(name = "amount")
     Double amount;
 
+    @Column(name = "store_id")
+    Integer storeId;
+
+    @Column(name = "board_id")
+    Integer boardId;
+
     /**
+     * -1 未下单
      * 0 未上菜
      * 1 已上菜
      */

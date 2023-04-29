@@ -19,4 +19,6 @@ public interface DishDao extends JpaRepository<Dish,Integer>, JpaSpecificationEx
 
     public Page<Dish> findByNameLikeAndStatusAndCategoryId(String name, Integer status, Pageable pageable,Integer categoryId);
 
+
+
 }

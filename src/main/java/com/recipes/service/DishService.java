@@ -17,4 +17,6 @@ public interface DishService {
     public Optional<Dish> getDishById(Integer id);
 
     public Page<Dish> getByCategoryId(Integer categoryId, Integer page, Integer pageSize);
+
+    public Page<Dish> findAll(Integer page, Integer size);
 }

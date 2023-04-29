@@ -33,12 +33,24 @@ public class StoreController {
     }
 
     /**
+     * 随机返回餐厅列表
+     * @param size
+     * @return
+     */
+    @GetMapping("/{size}")
+    public R<Page<Store>> getRandomStore(@PathVariable Integer size){
+        return R.success(storeService.getRandomStore(size));
+    }
+
+    /**
      * 添加餐厅
      * @param store
      * @return
      */
     @PostMapping
     public R<String> add(@RequestBody Store store){
+        Integer userId = BaseContext.getUserId();
+        store.setEmployeeId(userId);
         storeService.save(store);
         return R.msg("添加成功");
     }

@@ -74,6 +74,17 @@ public class DishController {
         return R.success(res);
     }
 
+    /**
+     * 获取所有菜品
+     * @param page
+     * @param size
+     * @return
+     */
+    @GetMapping("/{page}/{size}")
+    public R<Page<Dish>> findAll(@PathVariable Integer page, @PathVariable Integer size){
+        return R.success(dishService.findAll(page, size));
+    }
+
 
 
 

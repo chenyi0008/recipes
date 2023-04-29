@@ -51,9 +51,8 @@ public class DishServiceImpl implements DishService {
         return dishDao.findByNameLikeAndStatus(name, 1,pageable);
     }
 
-
-
-
-
-
+    public Page<Dish> findAll(Integer page, Integer size){
+        Pageable pageable = PageRequest.of(page - 1, size);
+        return dishDao.findAll(pageable);
+    }
 }

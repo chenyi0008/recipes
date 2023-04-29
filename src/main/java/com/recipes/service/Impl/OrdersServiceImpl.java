@@ -18,7 +18,9 @@ public class OrdersServiceImpl implements OrdersService {
     OrdersDao ordersDao;
 
     public Page<Orders> findAll(int page, int size) {
-        Pageable pageable = PageRequest.of(page - 1, size);
+//        Pageable pageable = PageRequest.of(page - 1, size);
+        Pageable pageable = PageRequest.of(0, 10);
+
         return ordersDao.findAll(pageable);
     }
 
@@ -27,8 +29,14 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public Page<Orders> findByUserId(Integer userId, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return ordersDao.findOrdersByUserId(pageable, userId);
+    public Page<Orders> findByUserIdAndStoreId(Integer userId, Integer storeId, int page, int size) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        return ordersDao.findOrdersByUserIdAndStoreId(pageable, userId, storeId);
     }
+
+    public Page<Orders> findByStoreId(Integer storeId, Integer page, Integer size){
+        Pageable pageable = PageRequest.of(page - 1, size);
+        return ordersDao.findAllByStoreId(pageable, storeId);
+    }
+
 }

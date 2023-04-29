@@ -1,5 +1,8 @@
 package com.recipes.common;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonKey;
 import lombok.Data;
 
 import java.util.HashMap;
@@ -13,6 +16,7 @@ public class R<T> {
 
     private T data; //数据
 
+    @JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
     private Map map = new HashMap(); //动态数据
 
     public static <T> R<T> success(T object) {

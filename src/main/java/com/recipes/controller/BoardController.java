@@ -5,13 +5,17 @@ import com.recipes.common.BaseContext;
 import com.recipes.common.R;
 import com.recipes.entity.Board;
 import com.recipes.entity.Category;
+import com.recipes.entity.Store;
 import com.recipes.service.BoardService;
 import com.recipes.service.CategoryService;
+import com.recipes.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.Optional;
+import java.util.TreeMap;
 
 /**
  * board
@@ -25,6 +29,9 @@ public class BoardController {
 
     @Autowired
     CategoryService categoryService;
+
+    @Autowired
+    StoreService storeService;
 
     /**
      * 添加餐桌
@@ -98,7 +105,11 @@ public class BoardController {
             boardService.update(b);
         }else return R.error("错误信息");
         Page<Category> page = categoryService.findByStoreId(storeId);
-        return R.success(page);
+        R r = R.success(page);
+        Store store = storeService.getById(storeId);
+        Map map = r.getMap();
+        map.put("store", store);
+        return r;
     }
 
 

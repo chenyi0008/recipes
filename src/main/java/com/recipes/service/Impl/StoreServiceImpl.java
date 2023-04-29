@@ -40,6 +40,15 @@ public class StoreServiceImpl implements StoreService{
         return storeDao.queryAllByEmployeeId(storeId, pageable);
     }
 
+    public Store getById(Integer id){
+        return storeDao.getById(id);
+    }
 
+    public Page<Store> getRandomStore(int size){
+        long count = storeDao.count();
+        int page = (int)(Math.random() * count / size);
+        Pageable pageable = PageRequest.of(page, size);
+        return storeDao.findAll(pageable);
+    }
 
 }

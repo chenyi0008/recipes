@@ -13,16 +13,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("orders")
+@RequestMapping("/orders")
 public class OrdersController {
 
     @Autowired
     OrdersService ordersService;
 
-    @GetMapping("/{page}/{size}")
-    public R<Page<Orders>> findAll(@PathVariable int page,@PathVariable int size){
-        return R.success(ordersService.findAll(page - 1, size));
+    /**
+     * 查询订单
+     * @param page
+     * @param size
+     * @return
+     */
+    @GetMapping("/{storeId}/{page}/{size}")
+    public R<Page<Orders>> findAll(@PathVariable Integer page, @PathVariable Integer size, @PathVariable Integer storeId){
+        return R.success(ordersService.findByStoreId(storeId, page, size));
     }
-
 
 }
