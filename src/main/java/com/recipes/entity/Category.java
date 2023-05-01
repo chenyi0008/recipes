@@ -1,12 +1,14 @@
 package com.recipes.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.mapping.Set;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,5 +29,7 @@ public class Category {
     @Column(name = "store_id")
     Integer storeId;
 
-
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Set<Dish> dishSet = new HashSet<Dish>();
 }

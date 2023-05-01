@@ -31,7 +31,7 @@ public interface ShoppingCartDao extends JpaRepository<ShoppingCart,Integer>, Jp
 
     public Integer deleteAllByUserIdAndStatusNot(Integer userId, Integer status);
 
-
+    public ShoppingCart findFirstByUserIdAndDishIdAndDishFlavorAndStatus(Integer userId, Integer dishId, String dishFlavor, Integer status);
 
 
 

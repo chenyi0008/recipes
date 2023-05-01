@@ -80,5 +80,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         return shoppingCartDao.findAllByStatusAndUserIdAndIdIn(pageable,status, userId, list);
     }
 
+    public ShoppingCart getShoppingCart(Integer userId, Integer dishId, String dishFlavor){
+        return shoppingCartDao.findFirstByUserIdAndDishIdAndDishFlavorAndStatus(userId, dishId, dishFlavor, -1);
+    }
 
 }

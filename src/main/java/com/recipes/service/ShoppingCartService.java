@@ -33,5 +33,5 @@ public interface ShoppingCartService {
 
     public Page<ShoppingCart> findAllByStatusAndUserIdAndIdIn(Integer status, Integer page, Integer size, Integer userId, List<Integer> list);
 
-
+    public ShoppingCart getShoppingCart(Integer userId, Integer dishId, String dishFlavor);
 }

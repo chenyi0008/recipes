@@ -3,6 +3,12 @@
 spring:
   profiles:
     active: dev
+
+
+
+  jpa:
+    hibernate:
+      ddl-auto:
 ---
 server:
   port: 8081

@@ -51,15 +51,23 @@ public class ShoppingCartController {
         if(!optionalBoard.isPresent())return R.error("请先扫描餐桌的二维码");
         Board board = optionalBoard.get();
 
-
-
         Optional<Dish> optionalMenu = dishService.getDishById(dishId);
-
 
         if(!optionalMenu.isPresent())return R.error("不存在此菜品");
         Dish dish = optionalMenu.get();
         Double total = dish.getPrice() * number;
 
+        //如果能在数据库查到对应的记录 直接增加
+        ShoppingCart sc = shoppingCartService.getShoppingCart(userId, dishId, dishFlavor);
+        if(sc != null){
+            int num = sc.getNumber() + number;
+            sc.setNumber(num);
+            sc.setAmount(dish.getPrice() * num);
+            shoppingCartService.update(sc);
+            return R.msg("更新成功");
+        }
+
+        //查不到记录 添加一条记录
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.setBoardId(board.getId());
         shoppingCart.setStoreId(board.getStoreId());

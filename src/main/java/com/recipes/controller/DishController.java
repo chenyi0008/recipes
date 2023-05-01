@@ -1,12 +1,21 @@
 package com.recipes.controller;
 
 
+import com.recipes.common.BaseContext;
 import com.recipes.common.R;
+import com.recipes.entity.Collect;
 import com.recipes.entity.Dish;
+import com.recipes.service.CollectService;
 import com.recipes.service.DishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Stream;
 
 
 /**
@@ -18,6 +27,9 @@ public class DishController {
 
     @Autowired
     DishService dishService;
+
+    @Autowired
+    CollectService collectService;
 
     /**
      * 添加菜品
@@ -82,11 +94,23 @@ public class DishController {
      */
     @GetMapping("/{page}/{size}")
     public R<Page<Dish>> findAll(@PathVariable Integer page, @PathVariable Integer size){
-        return R.success(dishService.findAll(page, size));
+        Integer userId = BaseContext.getUserId();
+        Page<Collect> collects = collectService.findAllByUserId(userId, 1, Integer.MAX_VALUE);
+        Page<Dish> all = dishService.findAll(page, size);
+        List<Dish> dishList = all.getContent();
+
+        for (int i = 0; i < dishList.size(); i++) {
+            Dish dish = dishList.get(i);
+            Integer id = dish.getId();
+            for (Collect collect : collects) {
+                dish.setIsCollected(false);
+                if (collect.getDishId().equals(id)){
+                    dish.setIsCollected(true);
+                    continue;
+                }
+            }
+        }
+        Page<Dish> newPage = new PageImpl<>(dishList, PageRequest.of(page, size), all.getTotalElements());
+        return R.success(newPage);
     }
-
-
-
-
-
 }
