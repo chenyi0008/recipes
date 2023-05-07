@@ -85,22 +85,13 @@ public class BoardController {
      */
     @GetMapping("/{boardId}")
     public R<Page<Category>> bind(@PathVariable Integer boardId){
-        Integer userId = BaseContext.getUserId();
-
-        Optional<Board> board = boardService.findByUserId(userId);
-        if(board.isPresent()){
-            Integer id = board.get().getId();
-            if(!id.equals(boardId))return R.error("已在其他餐桌就餐，请先买单");
-        }
+        Optional<Board> board;
 
         board = boardService.queryById(boardId);
 
         Integer storeId = null;
         if(board.isPresent()){
             Board b = board.get();
-            if(b.getStatus() == 2 && !b.getUserId().equals(userId))return R.error("此餐桌已有其他用户占用");
-            b.setUserId(userId);
-            b.setStatus(2);
             storeId = b.getStoreId();
             boardService.update(b);
         }else return R.error("错误信息");

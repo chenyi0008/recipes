@@ -18,6 +18,4 @@ public interface BoardService {
 
     public Optional<Board> queryById(Integer boardId);
 
-    public Optional<Board> findByUserId(Integer userId);
-
 }

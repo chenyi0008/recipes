@@ -39,4 +39,8 @@ public class OrdersServiceImpl implements OrdersService {
         return ordersDao.findAllByStoreId(pageable, storeId);
     }
 
+    public void saveAll(List<Orders> list){
+        ordersDao.saveAll(list);
+    }
+
 }

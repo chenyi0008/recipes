@@ -14,4 +14,6 @@ public interface OrdersService {
 
     public Page<Orders> findByStoreId(Integer storeId, Integer page, Integer size);
 
+    public void saveAll(List<Orders> list);
+
 }

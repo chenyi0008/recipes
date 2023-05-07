@@ -15,4 +15,6 @@ public interface OrdersDao extends JpaRepository<Orders,Integer>, JpaSpecificati
 
     public Page<Orders> findAllByStoreId(Pageable pageable, Integer storeId);
 
+
+
 }

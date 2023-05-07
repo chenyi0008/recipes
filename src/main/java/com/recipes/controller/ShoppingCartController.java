@@ -44,16 +44,29 @@ public class ShoppingCartController {
      * @return
      */
     @GetMapping("add")
-    public R<String> add(Integer dishId, String dishFlavor, Integer number){
+    public R<String> add(Integer dishId, String dishFlavor, Integer number, Integer boardId){
         Integer userId = BaseContext.getUserId();
         if(number <= 0)return R.error("菜品数量最低为1");
-        Optional<Board> optionalBoard = boardService.findByUserId(userId);
-        if(!optionalBoard.isPresent())return R.error("请先扫描餐桌的二维码");
-        Board board = optionalBoard.get();
 
         Optional<Dish> optionalMenu = dishService.getDishById(dishId);
 
         if(!optionalMenu.isPresent())return R.error("不存在此菜品");
+        Board board;
+        if(boardId.equals(-1)){
+            board = new Board();
+            board.setId(-1);
+            Integer storeId = optionalMenu.get().getCategory().getStoreId();
+            board.setStoreId(storeId);
+        }
+        Optional<Board> optionalBoard = boardService.queryById(boardId);
+
+        if(!optionalBoard.isPresent()){
+            return R.error("不存在此餐桌");
+        }else{
+            board = optionalBoard.get();
+        }
+
+
         Dish dish = optionalMenu.get();
         Double total = dish.getPrice() * number;
 
@@ -174,43 +187,53 @@ public class ShoppingCartController {
      * 买单
     */
     @Transactional
-    @GetMapping()
+    @GetMapping("")
     public R<String> settleAccounts(){
         Integer userId = BaseContext.getUserId();
         Page<ShoppingCart> page = shoppingCartService.getAll(userId, 1, Integer.MAX_VALUE);
-        Optional<Board> optionalBoard = boardService.findByUserId(userId);
-        if(!optionalBoard.isPresent())return R.error("请先扫描餐桌的二维码");
-        shoppingCartService.deleteAllByUserIdAndStatusNot(userId, -1);
-        Double sum = 0.0;
-        Orders orders = new Orders();
-        Board board = optionalBoard.get();
+        if(page.getSize() == 0)return R.error("未下单菜品，无法买单");
 
-        orders.setStoreId(board.getStoreId());
-        orders.setBoardId(board.getId());
-        Set<OrderDetail> set = new HashSet<>();
-        for (ShoppingCart cart : page) {
-            System.out.println(cart);
-            OrderDetail orderDetail = new OrderDetail();
-            orderDetail.setName(cart.getName());
-            orderDetail.setImage(cart.getImage());
-            orderDetail.setDishFlavor(cart.getDishFlavor());
-            orderDetail.setNumber(cart.getNumber());
-            orderDetail.setAmount(cart.getAmount());
-            orderDetail.setDishId(cart.getDishId());
-            sum += cart.getAmount();
-            orderDetail.setOrders(orders);
-            set.add(orderDetail);
-        }
-        orders.setDetailSet(set);
+
+        shoppingCartService.deleteAllByUserIdAndStatusNot(userId, -1);
+
+        Map<Integer, Orders> map = new TreeMap<>();
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDateTime = now.format(formatter);
+        for (ShoppingCart shoppingCart : page.getContent()) {
+            Integer boardId = shoppingCart.getBoardId();
+            Integer storeId = shoppingCart.getStoreId();
+            if(!map.containsKey(boardId)){
+                Orders orders = new Orders();
+                orders.setBoardId(boardId);
+                orders.setStoreId(storeId);
+                orders.setUserId(userId);
+                orders.setUserName(BaseContext.getUsername());
+                orders.setOrderTime(formattedDateTime);
+                orders.setDetailSet(new HashSet<OrderDetail>());
+                orders.setAmount(0.0);
+                map.put(boardId, orders);
+            }
 
-        orders.setOrderTime(formattedDateTime);
-        orders.setAmount(sum);
-        orders.setUserId(userId);
-        orders.setUserName(BaseContext.getUsername());
-        ordersService.save(orders);
+            OrderDetail orderDetail = new OrderDetail();
+            Orders orders = map.get(boardId);
+            orderDetail.setName(shoppingCart.getName());
+            orderDetail.setImage(shoppingCart.getImage());
+            orderDetail.setDishFlavor(shoppingCart.getDishFlavor());
+            orderDetail.setNumber(shoppingCart.getNumber());
+            orderDetail.setAmount(shoppingCart.getAmount());
+            orderDetail.setDishId(shoppingCart.getDishId());
+            orderDetail.setOrders(orders);
+            orders.setAmount(orders.getAmount() + shoppingCart.getAmount());
+            orders.getDetailSet().add(orderDetail);
+        }
+        Double sum = 0.0;
+        List<Orders> res = new ArrayList<>();
+        for (Orders value : map.values()) {
+            sum += value.getAmount();
+            res.add(value);
+        }
+        ordersService.saveAll(res);
         return R.msg("订单生成成功,共计：" + sum + "元");
     }
 

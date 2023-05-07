@@ -39,11 +39,9 @@ public class BoardServiceImpl implements BoardService {
         return boardDao.findAllByStoreId(storeId,pageable);
     }
 
+    @Override
     public Optional<Board> queryById(Integer boardId){
         return boardDao.findById(boardId);
     }
 
-    public Optional<Board> findByUserId(Integer userId){
-        return boardDao.findBoardByUserId(userId);
-    }
 }

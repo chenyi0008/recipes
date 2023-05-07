@@ -15,7 +15,4 @@ public interface BoardDao extends JpaRepository<Board,Integer>, JpaSpecification
 
     public Page<Board> findAllByStoreId(Integer storeId, Pageable pageable);
 
-    public Optional<Board> findBoardByUserId(Integer userId);
-
-
 }

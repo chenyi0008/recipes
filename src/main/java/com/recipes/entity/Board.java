@@ -30,9 +30,6 @@ public class Board implements Serializable {
     @Column
     private Integer status;
 
-    @Column(name = "user_id")
-    private Integer userId;
-
 
     @Column(name = "store_id")
     private Integer storeId;
