@@ -62,13 +62,19 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         return shoppingCartDao.findAllByStatusAndStoreId(pageable, status,storeId);
     }
 
+    public Page<ShoppingCart> findAllByStatusNotAndUserId(Integer status, Integer page, Integer size, Integer userId) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        return shoppingCartDao.findAllByStatusNotAndUserId(pageable, status, userId);
+    }
+
+
     public Page<ShoppingCart> findAllByStatusAndUserId(Integer status, Integer page, Integer size, Integer userId) {
         Pageable pageable = PageRequest.of(page - 1, size);
         return shoppingCartDao.findAllByStatusAndUserId(pageable, status, userId);
     }
 
     public Integer deleteAllByUserIdAndStatusNot(Integer userId, Integer status){
-        return shoppingCartDao.deleteAllByUserIdAndStatusNot(userId, status);
+        return shoppingCartDao.removeAllByUserIdAndStatusNot(userId, status);
     }
 
     public void saveList(List<ShoppingCart> content){

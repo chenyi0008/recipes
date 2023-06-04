@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import java.util.Optional;
+
 @Service
 public class StoreServiceImpl implements StoreService{
 
@@ -41,7 +43,8 @@ public class StoreServiceImpl implements StoreService{
     }
 
     public Store getById(Integer id){
-        return storeDao.getById(id);
+        Optional<Store> store = storeDao.findById(id);
+        return store.get();
     }
 
     public Page<Store> getRandomStore(int size){

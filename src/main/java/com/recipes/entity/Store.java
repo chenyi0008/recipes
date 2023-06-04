@@ -5,13 +5,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
 @Table(name = "store")
-public class Store {
+public class Store implements Serializable {
 
     @Id
     @Column
@@ -26,6 +27,9 @@ public class Store {
 
     @Column
     private String description;
+
+    @Column
+    private String image;
 
     @Column(name = "employee_id")
     private Integer employeeId;

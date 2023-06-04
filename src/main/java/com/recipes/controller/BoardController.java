@@ -11,6 +11,7 @@ import com.recipes.service.CategoryService;
 import com.recipes.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -102,6 +103,19 @@ public class BoardController {
         map.put("store", store);
         return r;
     }
+
+    /**
+     * 根据id获取餐桌
+     * @param id
+     * @return
+     */
+    @GetMapping
+    public R<Board> getById(@Param("id")int id){
+        Optional<Board> optionalBoard = boardService.queryById(id);
+        Board board = optionalBoard.get();
+        return R.success(board);
+    }
+
 
 
 

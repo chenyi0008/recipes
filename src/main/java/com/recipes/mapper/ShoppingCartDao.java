@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -29,9 +30,13 @@ public interface ShoppingCartDao extends JpaRepository<ShoppingCart,Integer>, Jp
 
     public Page<ShoppingCart> findAllByStatusAndUserIdAndIdIn(Pageable pageable, Integer status, Integer userId, List<Integer> ids);
 
-    public Integer deleteAllByUserIdAndStatusNot(Integer userId, Integer status);
+    public Integer removeAllByUserIdAndStatusNot(Integer userId, Integer status);
+
+
 
     public ShoppingCart findFirstByUserIdAndDishIdAndDishFlavorAndStatus(Integer userId, Integer dishId, String dishFlavor, Integer status);
+
+    public Page<ShoppingCart> findAllByStatusNotAndUserId(Pageable pageable, Integer status, Integer userId);
 
 
 

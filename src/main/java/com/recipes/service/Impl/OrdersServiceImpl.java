@@ -43,4 +43,19 @@ public class OrdersServiceImpl implements OrdersService {
         ordersDao.saveAll(list);
     }
 
+    @Override
+    public Orders findById(int id) {
+        return ordersDao.findById(id).get();
+    }
+
+    public void update(int id){
+        ordersDao.update(id);
+    }
+
+    @Override
+    public Page<Orders> findByUserId(Integer userId, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        return ordersDao.findAllByUserId(pageable, userId);
+    }
+
 }

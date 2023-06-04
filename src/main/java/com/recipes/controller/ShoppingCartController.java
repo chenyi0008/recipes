@@ -57,14 +57,16 @@ public class ShoppingCartController {
             board.setId(-1);
             Integer storeId = optionalMenu.get().getCategory().getStoreId();
             board.setStoreId(storeId);
-        }
-        Optional<Board> optionalBoard = boardService.queryById(boardId);
-
-        if(!optionalBoard.isPresent()){
-            return R.error("不存在此餐桌");
         }else{
-            board = optionalBoard.get();
+            Optional<Board> optionalBoard = boardService.queryById(boardId);
+            if(!optionalBoard.isPresent()){
+                return R.error("不存在此餐桌");
+            }else{
+                board = optionalBoard.get();
+            }
         }
+
+
 
 
         Dish dish = optionalMenu.get();
@@ -142,6 +144,20 @@ public class ShoppingCartController {
 
 
     /**
+     * 获取已上菜和未上菜列表
+     * @param page
+     * @param size
+     * @return
+     */
+    @GetMapping("/place/{page}/{size}/")
+    public R<Page<ShoppingCart>> getByStatus1And2(@PathVariable Integer page, @PathVariable Integer size){
+        Integer userId = BaseContext.getUserId();
+        Page<ShoppingCart> list = shoppingCartService.findAllByStatusNotAndUserId(-1, page, size, userId);
+        return R.success(list);
+    }
+
+
+    /**
      * 退菜/删除购物车菜品
      * @param id
      * @return
@@ -184,14 +200,20 @@ public class ShoppingCartController {
     }
 
     /**
-     * 买单
+     * 买单（生成订单）
     */
     @Transactional
     @GetMapping("")
     public R<String> settleAccounts(){
         Integer userId = BaseContext.getUserId();
         Page<ShoppingCart> page = shoppingCartService.getAll(userId, 1, Integer.MAX_VALUE);
-        if(page.getSize() == 0)return R.error("未下单菜品，无法买单");
+        int t = 0;
+        for (ShoppingCart shoppingCart : page.getContent()) {
+            if(shoppingCart.getStatus() != -1)t ++;
+        }
+
+
+        if(t == 0)return R.error("未下单菜品，无法买单");
 
 
         shoppingCartService.deleteAllByUserIdAndStatusNot(userId, -1);
@@ -201,10 +223,12 @@ public class ShoppingCartController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDateTime = now.format(formatter);
         for (ShoppingCart shoppingCart : page.getContent()) {
+            if(shoppingCart.getStatus() != -1)continue;
             Integer boardId = shoppingCart.getBoardId();
             Integer storeId = shoppingCart.getStoreId();
             if(!map.containsKey(boardId)){
                 Orders orders = new Orders();
+                orders.setIsPayed(false);
                 orders.setBoardId(boardId);
                 orders.setStoreId(storeId);
                 orders.setUserId(userId);
@@ -236,6 +260,9 @@ public class ShoppingCartController {
         ordersService.saveAll(res);
         return R.msg("订单生成成功,共计：" + sum + "元");
     }
+
+
+
 
 
 

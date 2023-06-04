@@ -25,6 +25,7 @@ spring:
 
 recipes:
   path: E:\Code\java\recipes\image\
+  url: localhost:8081/
 ---
 server:
   port: 8086
@@ -41,6 +42,6 @@ spring:
 
 recipes:
   path: /www/wwwroot/pic/
-
+  url: 113.125.103.168:8086/
 ---
 

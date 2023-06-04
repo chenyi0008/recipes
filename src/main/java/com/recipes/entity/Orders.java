@@ -43,6 +43,9 @@ public class Orders  implements Serializable {
     @Column(name = "store_id")
     private Integer storeId;
 
+    @Column(name = "is_payed")
+    private Boolean isPayed;
+
     @Override
     public String toString() {
         return "Orders{" +

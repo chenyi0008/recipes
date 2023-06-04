@@ -3,10 +3,7 @@ package com.recipes.controller;
 import com.recipes.common.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletOutputStream;
@@ -58,8 +55,8 @@ public class CommonController {
      * @param name
      * @param response
      */
-    @GetMapping("download")
-    public void download(String name, HttpServletResponse response) throws IOException {
+    @GetMapping("download/{name}")
+    public void download(@PathVariable String name, HttpServletResponse response) throws IOException {
         //输入流，通过输入流读取文件内容
         FileInputStream fileInputStream = new FileInputStream(new File(basePath + name));
 

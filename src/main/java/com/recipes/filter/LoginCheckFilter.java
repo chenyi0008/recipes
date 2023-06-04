@@ -1,9 +1,7 @@
 package com.recipes.filter;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.recipes.common.BaseContext;
-import com.recipes.common.CustomException;
 import com.recipes.common.R;
 import com.recipes.util.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static org.apache.logging.log4j.message.MapMessage.MapFormat.JSON;
 
 /**
  * 检查用户是否已经完成登录
@@ -45,7 +42,9 @@ public class LoginCheckFilter implements Filter {
         //定义不需要处理的请求路径
         String[] urls = new String[]{
                 "/user/**",
-                "/employee/**"
+                "/employee/register",
+                "/employee/login",
+                "/common/**"
         };
 
         //判断本次请求是否需要处理
@@ -82,7 +81,9 @@ public class LoginCheckFilter implements Filter {
                 "/store/**",
                 "/shoppingCart/**",
                 "/orders/**",
-                "/backstage/**"
+                "/backstage/**",
+                "/employee",
+
         };
         String[] userUrls = new String[]{
                 "/common/**",
@@ -93,6 +94,7 @@ public class LoginCheckFilter implements Filter {
                 "/store/**",
                 "/dish/**",
                 "/collect/**",
+                "/orders/**",
         };
 
 
