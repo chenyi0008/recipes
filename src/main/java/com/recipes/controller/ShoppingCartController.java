@@ -178,6 +178,7 @@ public class ShoppingCartController {
      * 下单
      * @return
      */
+    @Transactional
     @PostMapping()
     public R<String> placeOrder(@RequestBody MyList<Integer> myList){
         Integer userId = BaseContext.getUserId();
@@ -196,7 +197,10 @@ public class ShoppingCartController {
             System.out.println(shoppingCart.getName());
         }
         shoppingCartService.saveList(content);
-        return R.msg("加入成功");
+//        return R.msg("加入成功");
+        return settleAccounts();
+
+
     }
 
     /**
@@ -223,7 +227,7 @@ public class ShoppingCartController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDateTime = now.format(formatter);
         for (ShoppingCart shoppingCart : page.getContent()) {
-            if(shoppingCart.getStatus() != -1)continue;
+            if(shoppingCart.getStatus() == -1)continue;
             Integer boardId = shoppingCart.getBoardId();
             Integer storeId = shoppingCart.getStoreId();
             if(!map.containsKey(boardId)){
